@@ -2,6 +2,14 @@ const STORAGE_KEY = "currencies";
 let currencies = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 let editingId = null;
 
+const nameInput = document.getElementById("currencyName");
+const categoryInput = document.getElementById("category");
+const awardedDateInput = document.getElementById("awardedDate");
+const validityValueInput = document.getElementById("validityValue");
+const validityUnitInput = document.getElementById("validityUnit");
+const fixedExpiryDateInput = document.getElementById("fixedExpiryDate");
+const expiryModeInput = document.getElementById("expiryMode");
+
 const list = document.getElementById("list");
 const dialog = document.getElementById("currencyDialog");
 
@@ -34,13 +42,13 @@ function toggleExpiryFields() {
 function saveCurrency() {
   const data = {
     id: editingId || crypto.randomUUID(),
-    name: name.value,
-    category: category.value,
-    expiryMode: expiryMode.value,
-    validityValue: Number(validityValue.value),
-    validityUnit: validityUnit.value,
-    fixedExpiryDate: fixedExpiryDate.value,
-    awardedDate: awardedDate.value
+    name: nameInput.value.trim(),
+    category: categoryInput.value,
+    expiryMode: expiryModeInput.value,
+    validityValue: Number(validityValueInput.value),
+    validityUnit: validityUnitInput.value,
+    fixedExpiryDate: fixedExpiryDateInput.value,
+    awardedDate: awardedDateInput.value
   };
 
   currencies = currencies.filter(c => c.id !== data.id).concat(data);
@@ -132,13 +140,13 @@ window.edit = id => {
   document.getElementById("formTitle").textContent = "Edit currency";
   document.getElementById("deleteBtn").style.display = "inline-block";
 
-  name.value = c.name;
-  category.value = c.category;
-  expiryMode.value = c.expiryMode;
-  validityValue.value = c.validityValue || "";
-  validityUnit.value = c.validityUnit || "days";
-  fixedExpiryDate.value = c.fixedExpiryDate || "";
-  awardedDate.value = c.awardedDate;
+  nameInput.value = c.name || "";
+  categoryInput.value = c.category;
+  expiryModeInput.value = c.expiryMode;
+  validityValueInput.value = c.validityValue || "";
+  validityUnitInput.value = c.validityUnit || "days";
+  fixedExpiryDateInput.value = c.fixedExpiryDate || "";
+  awardedDateInput.value = c.awardedDate;
 
   toggleExpiryFields();
   dialog.showModal();
