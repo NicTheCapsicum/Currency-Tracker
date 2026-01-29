@@ -55,16 +55,20 @@ function renderCurrency(c) {
   const days = Math.ceil((c.expiry - Date.now()) / 86400000);
   const colour = getColour(days, c);
 
+  const nameText = c.name || "(Unnamed currency)";
+  const expiryText = new Date(c.expiry).toLocaleDateString();
+
   div.className = `currency ${colour}`;
   div.innerHTML = `
-    <strong>${c.name}</strong><br>
-    Expires: ${new Date(c.expiry).toLocaleDateString()} (${days} days)
+    <strong>${nameText}</strong><br>
+    Expires: ${expiryText} (${days} days)
     <br>
     <button onclick="complete('${c.id}')">Completed</button>
     <button onclick="edit('${c.id}')">Edit</button>
   `;
   return div;
 }
+
 
 function calculateExpiry(c) {
   const base = new Date(c.awardedDate);
