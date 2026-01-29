@@ -114,4 +114,12 @@ window.edit = id => {
   dialog.showModal();
 };
 
+function openForm() {
+  editingId = null;
+  document.getElementById("formTitle").textContent = "Add currency";
+  document.getElementById("currencyForm").reset();
+  toggleExpiryFields();
+  dialog.showModal();
+}
+
 render();
