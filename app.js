@@ -1,7 +1,3 @@
-const STORAGE_KEY = "currencies";
-let currencies = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-let editingId = null;
-
 const nameInput = document.getElementById("currencyName");
 const categoryInput = document.getElementById("category");
 const awardedDateInput = document.getElementById("awardedDate");
@@ -9,6 +5,14 @@ const validityValueInput = document.getElementById("validityValue");
 const validityUnitInput = document.getElementById("validityUnit");
 const fixedExpiryDateInput = document.getElementById("fixedExpiryDate");
 const expiryModeInput = document.getElementById("expiryMode");
+
+if (!nameInput) {
+  alert("currencyName input not found — check index.html IDs");
+}
+
+const STORAGE_KEY = "currencies";
+let currencies = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+let editingId = null;
 
 const list = document.getElementById("list");
 const dialog = document.getElementById("currencyDialog");
@@ -40,9 +44,16 @@ function toggleExpiryFields() {
 }
 
 function saveCurrency() {
+  const nameValue = nameInput.value.trim();
+
+  if (!nameValue) {
+    alert("Currency name is required");
+    return;
+  }
+
   const data = {
     id: editingId || crypto.randomUUID(),
-    name: nameInput.value.trim(),
+    name: nameValue,
     category: categoryInput.value,
     expiryMode: expiryModeInput.value,
     validityValue: Number(validityValueInput.value),
@@ -50,6 +61,14 @@ function saveCurrency() {
     fixedExpiryDate: fixedExpiryDateInput.value,
     awardedDate: awardedDateInput.value
   };
+
+  currencies = currencies.filter(c => c.id !== data.id);
+  currencies.push(data);
+
+  persist();
+  dialog.close();
+}
+
 
   currencies = currencies.filter(c => c.id !== data.id).concat(data);
   persist();
