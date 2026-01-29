@@ -69,12 +69,6 @@ function saveCurrency() {
   dialog.close();
 }
 
-
-  currencies = currencies.filter(c => c.id !== data.id).concat(data);
-  persist();
-  dialog.close();
-}
-
 function persist() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(currencies));
   render();
@@ -182,8 +176,5 @@ function openForm() {
 
 render();
 
-window.addCurrency = addCurrency;
 window.saveCurrency = saveCurrency;
-window.complete = complete;
-window.edit = edit;
-window.deleteCurrency = deleteCurrency;
+window.openForm = openForm;
