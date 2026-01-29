@@ -1,0 +1,8 @@
+{
+  "name": "Currency Tracker",
+  "short_name": "Currencies",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}
