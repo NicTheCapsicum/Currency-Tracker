@@ -1,0 +1,42 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+main {
+  padding: 1rem;
+}
+
+.currency {
+  background: #fff;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-left: 6px solid #000;
+}
+
+.currency.red {
+  background: #b00020;
+  color: #fff;
+}
+
+.currency button {
+  margin-right: 0.5rem;
+}
+
+.black { border-color: #000; }
+.blue { border-color: #005bbb; }
+.green { border-color: #2e7d32; }
+.yellow { border-color: #f9a825; }
+.amber { border-color: #ff8f00; }
+.red { border-color: #b00020; }
