@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Tracker</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Currency Tracker</h1>
+    <button id="addBtn">Add currency</button>
+  </header>
+
+  <main id="list"></main>
+
+  <dialog id="currencyDialog">
+    <form method="dialog" id="currencyForm">
+      <h2 id="formTitle">Add currency</h2>
+
+      <label>
+        Name
+        <input required id="name" />
+      </label>
+
+      <label>
+        Category
+        <select id="category">
+          <option value="flying">Flying</option>
+          <option value="ground">Ground</option>
+        </select>
+      </label>
+
+      <label>
+        Date awarded
+        <input type="date" required id="awardedDate" />
+      </label>
+
+      <label>
+        Expiry type
+        <select id="expiryMode">
+          <option value="relative">Relative</option>
+          <option value="fixed">Fixed date</option>
+        </select>
+      </label>
+
+      <div id="relativeFields">
+        <label>
+          Validity
+          <input type="number" min="1" id="validityValue" />
+        </label>
+        <select id="validityUnit">
+          <option value="days">Days</option>
+          <option value="months">Months</option>
+          <option value="years">Years</option>
+        </select>
+      </div>
+
+      <label id="fixedField" hidden>
+        Expiry date
+        <input type="date" id="fixedExpiryDate" />
+      </label>
+
+      <menu>
+        <button value="cancel">Cancel</button>
+        <button id="saveBtn" value="default">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
