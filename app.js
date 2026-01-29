@@ -18,10 +18,10 @@ document.getElementById("currencyForm").onsubmit = e => {
 document.getElementById("deleteBtn").onclick = () => {
   if (!editingId) return;
 
-  const confirmed = confirm("Delete this currency?");
-  if (!confirmed) return;
+  if (!confirm("Delete this currency?")) return;
 
   currencies = currencies.filter(c => c.id !== editingId);
+  editingId = null;
   persist();
   dialog.close();
 };
@@ -55,8 +55,12 @@ function persist() {
 
 function render() {
   list.innerHTML = "";
+
   currencies
-    .map(c => ({ ...c, expiry: calculateExpiry(c) }))
+    .map(c => {
+      const expiry = calculateExpiry(c);
+      return { ...c, expiry };
+    })
     .sort((a, b) => a.expiry - b.expiry)
     .forEach(c => list.append(renderCurrency(c)));
 }
@@ -66,20 +70,20 @@ function renderCurrency(c) {
   const days = Math.ceil((c.expiry - Date.now()) / 86400000);
   const colour = getColour(days, c);
 
-  const nameText = c.name || "(Unnamed currency)";
-  const expiryText = new Date(c.expiry).toLocaleDateString();
+  const displayName = typeof c.name === "string" && c.name.trim()
+    ? c.name
+    : "Unnamed currency";
 
   div.className = `currency ${colour}`;
   div.innerHTML = `
-    <strong>${nameText}</strong><br>
-    Expires: ${expiryText} (${days} days)
+    <strong>${displayName}</strong><br>
+    Expires: ${new Date(c.expiry).toLocaleDateString()} (${days} days)
     <br>
     <button onclick="complete('${c.id}')">Completed</button>
     <button onclick="edit('${c.id}')">Edit</button>
   `;
   return div;
 }
-
 
 function calculateExpiry(c) {
   const base = new Date(c.awardedDate);
