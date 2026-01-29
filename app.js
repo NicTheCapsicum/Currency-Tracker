@@ -15,6 +15,17 @@ document.getElementById("currencyForm").onsubmit = e => {
   saveCurrency();
 };
 
+document.getElementById("deleteBtn").onclick = () => {
+  if (!editingId) return;
+
+  const confirmed = confirm("Delete this currency?");
+  if (!confirmed) return;
+
+  currencies = currencies.filter(c => c.id !== editingId);
+  persist();
+  dialog.close();
+};
+
 function toggleExpiryFields() {
   document.getElementById("relativeFields").hidden = expiryMode.value !== "relative";
   document.getElementById("fixedField").hidden = expiryMode.value !== "fixed";
@@ -115,6 +126,7 @@ window.edit = id => {
   editingId = id;
 
   document.getElementById("formTitle").textContent = "Edit currency";
+  document.getElementById("deleteBtn").style.display = "inline-block";
 
   name.value = c.name;
   category.value = c.category;
@@ -132,6 +144,7 @@ function openForm() {
   editingId = null;
   document.getElementById("formTitle").textContent = "Add currency";
   document.getElementById("currencyForm").reset();
+  document.getElementById("deleteBtn").style.display = "none";
   toggleExpiryFields();
   dialog.showModal();
 }
