@@ -109,7 +109,17 @@ window.complete = id => {
 window.edit = id => {
   const c = currencies.find(x => x.id === id);
   editingId = id;
-  Object.assign(window, c);
+
+  document.getElementById("formTitle").textContent = "Edit currency";
+
+  name.value = c.name;
+  category.value = c.category;
+  expiryMode.value = c.expiryMode;
+  validityValue.value = c.validityValue || "";
+  validityUnit.value = c.validityUnit || "days";
+  fixedExpiryDate.value = c.fixedExpiryDate || "";
+  awardedDate.value = c.awardedDate;
+
   toggleExpiryFields();
   dialog.showModal();
 };
