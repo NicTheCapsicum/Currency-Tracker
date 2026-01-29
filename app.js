@@ -181,3 +181,9 @@ function openForm() {
 }
 
 render();
+
+window.addCurrency = addCurrency;
+window.saveCurrency = saveCurrency;
+window.complete = complete;
+window.edit = edit;
+window.deleteCurrency = deleteCurrency;
