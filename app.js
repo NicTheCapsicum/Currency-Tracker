@@ -174,7 +174,21 @@ function openForm() {
   dialog.showModal();
 }
 
+function scheduleMidnightRefresh() {
+  const now = new Date();
+  const nextMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1
+  );
+  setTimeout(() => {
+    render();
+    scheduleMidnightRefresh();
+  }, nextMidnight - now);
+}
+
 render();
+scheduleMidnightRefresh();
 
 window.saveCurrency = saveCurrency;
 window.openForm = openForm;
